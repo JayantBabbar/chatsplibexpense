@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ═══════════════════════════════════════════════
+     WhatsApp Theme — CSS Custom Properties (RGB)
+     ═══════════════════════════════════════════════ */
+
+  /* Dark theme (default) */
+  :root {
+    --wa-bg-deep: 11 20 26;        /* #0b141a */
+    --wa-bg: 17 27 33;             /* #111b21 */
+    --wa-bg-panel: 32 44 51;       /* #202c33 */
+    --wa-bg-card: 31 44 52;        /* #1f2c34 */
+    --wa-bg-card-alt: 26 39 48;    /* #1a2730 */
+    --wa-bg-input: 42 57 66;       /* #2a3942 */
+    --wa-bg-dropdown: 35 49 56;    /* #233138 */
+    --wa-bg-hover: 42 57 66;       /* #2a3942 */
+    --wa-bg-hover-strong: 59 74 84;/* #3b4a54 */
+    --wa-bg-msg-out: 0 92 75;      /* #005c4b */
+    --wa-bg-msg-in: 32 44 51;      /* #202c33 */
+    --wa-border: 42 57 66;         /* #2a3942 */
+    --wa-border-subtle: 34 45 52;  /* #222d34 */
+    --wa-text: 233 237 239;        /* #e9edef */
+    --wa-text-secondary: 134 150 160; /* #8696a0 */
+    --wa-text-muted: 102 119 129;  /* #667781 */
+    --wa-text-light: 209 215 219;  /* #d1d7db */
+    --wa-icon: 174 186 193;        /* #aebac1 */
+    --wa-accent: 0 168 132;        /* #00a884 */
+    --wa-accent-dark: 0 128 105;   /* #008069 */
+    --wa-accent-msg: 184 221 208;  /* #b8ddd0 */
+    --wa-overlay-subtle: 255 255 255; /* used with low alpha */
+    --wa-timestamp: 255 255 255;   /* #ffffff for dark msg bg */
+    --wa-msg-text: 233 237 239;    /* same as --wa-text */
+  }
+
+  /* Light theme */
+  [data-theme="light"] {
+    --wa-bg-deep: 240 242 245;     /* #f0f2f5 */
+    --wa-bg: 255 255 255;          /* #ffffff */
+    --wa-bg-panel: 240 242 245;    /* #f0f2f5 */
+    --wa-bg-card: 255 255 255;     /* #ffffff */
+    --wa-bg-card-alt: 245 246 246; /* #f5f6f6 */
+    --wa-bg-input: 255 255 255;    /* #ffffff */
+    --wa-bg-dropdown: 255 255 255; /* #ffffff */
+    --wa-bg-hover: 245 246 246;    /* #f5f6f6 */
+    --wa-bg-hover-strong: 233 237 239; /* #e9edef */
+    --wa-bg-msg-out: 217 253 211;  /* #d9fdd3 */
+    --wa-bg-msg-in: 255 255 255;   /* #ffffff */
+    --wa-border: 233 237 239;      /* #e9edef */
+    --wa-border-subtle: 233 237 239; /* #e9edef */
+    --wa-text: 17 27 33;           /* #111b21 */
+    --wa-text-secondary: 102 119 129; /* #667781 */
+    --wa-text-muted: 134 150 160;  /* #8696a0 */
+    --wa-text-light: 59 74 84;     /* #3b4a54 */
+    --wa-icon: 84 101 111;         /* #54656f */
+    --wa-accent: 0 168 132;        /* #00a884 */
+    --wa-accent-dark: 0 128 105;   /* #008069 */
+    --wa-accent-msg: 0 128 105;    /* #008069 */
+    --wa-overlay-subtle: 0 0 0;    /* used with low alpha */
+    --wa-timestamp: 102 119 129;   /* #667781 for light msg bg */
+    --wa-msg-text: 17 27 33;       /* dark text on light bg */
+  }
+
+  html {
+    @apply h-full;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    @apply h-full;
+    background-color: rgb(var(--wa-bg));
+    color: rgb(var(--wa-text));
+    font-family: 'Segoe UI', Helvetica Neue, Helvetica, Arial, sans-serif;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #__next {
+    @apply h-full;
+  }
+
+  /* Safe area padding for notched devices */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .safe-bottom {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .safe-top {
+      padding-top: env(safe-area-inset-top);
+    }
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--wa-border), 0.7);
+    border-radius: 9999px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(var(--wa-bg-hover-strong), 0.9);
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Premium WhatsApp Accent selection colors */
+  ::selection {
+    background-color: rgba(0, 168, 132, 0.25);
+    color: inherit;
+  }
+}
+

@@ -1,0 +1,67 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        /* Theme-aware semantic tokens (use CSS variables) */
+        wa: {
+          'bg-deep':       'rgb(var(--wa-bg-deep) / <alpha-value>)',
+          'bg':            'rgb(var(--wa-bg) / <alpha-value>)',
+          'bg-panel':      'rgb(var(--wa-bg-panel) / <alpha-value>)',
+          'bg-card':       'rgb(var(--wa-bg-card) / <alpha-value>)',
+          'bg-card-alt':   'rgb(var(--wa-bg-card-alt) / <alpha-value>)',
+          'bg-input':      'rgb(var(--wa-bg-input) / <alpha-value>)',
+          'bg-dropdown':   'rgb(var(--wa-bg-dropdown) / <alpha-value>)',
+          'bg-hover':      'rgb(var(--wa-bg-hover) / <alpha-value>)',
+          'bg-hover-strong':'rgb(var(--wa-bg-hover-strong) / <alpha-value>)',
+          'bg-msg-out':    'rgb(var(--wa-bg-msg-out) / <alpha-value>)',
+          'bg-msg-in':     'rgb(var(--wa-bg-msg-in) / <alpha-value>)',
+          'border':        'rgb(var(--wa-border) / <alpha-value>)',
+          'border-subtle': 'rgb(var(--wa-border-subtle) / <alpha-value>)',
+          'text':          'rgb(var(--wa-text) / <alpha-value>)',
+          'text-secondary':'rgb(var(--wa-text-secondary) / <alpha-value>)',
+          'text-muted':    'rgb(var(--wa-text-muted) / <alpha-value>)',
+          'text-light':    'rgb(var(--wa-text-light) / <alpha-value>)',
+          'icon':          'rgb(var(--wa-icon) / <alpha-value>)',
+          'accent':        'rgb(var(--wa-accent) / <alpha-value>)',
+          'accent-dark':   'rgb(var(--wa-accent-dark) / <alpha-value>)',
+          'accent-msg':    'rgb(var(--wa-accent-msg) / <alpha-value>)',
+          'overlay':       'rgb(var(--wa-overlay-subtle) / <alpha-value>)',
+        },
+        /* Legacy aliases (still using CSS vars for theme awareness) */
+        whatsapp: {
+          primary: 'rgb(var(--wa-accent) / <alpha-value>)',
+          'primary-dark': 'rgb(var(--wa-accent-dark) / <alpha-value>)',
+          green: 'rgb(var(--wa-accent) / <alpha-value>)',
+          'green-dark': 'rgb(var(--wa-accent-dark) / <alpha-value>)',
+          teal: 'rgb(var(--wa-accent) / <alpha-value>)',
+          'bg-dark': 'rgb(var(--wa-bg) / <alpha-value>)',
+          'bg-sidebar': 'rgb(var(--wa-bg) / <alpha-value>)',
+          'bg-chat': 'rgb(var(--wa-bg-deep) / <alpha-value>)',
+          'bg-message-out': 'rgb(var(--wa-bg-msg-out) / <alpha-value>)',
+          'bg-message-in': 'rgb(var(--wa-bg-msg-in) / <alpha-value>)',
+          'bg-header': 'rgb(var(--wa-bg-panel) / <alpha-value>)',
+          'bg-input': 'rgb(var(--wa-bg-input) / <alpha-value>)',
+          'msg-sent': 'rgb(var(--wa-bg-msg-out) / <alpha-value>)',
+          border: 'rgb(var(--wa-border) / <alpha-value>)',
+          'text-primary': 'rgb(var(--wa-text) / <alpha-value>)',
+          'text-secondary': 'rgb(var(--wa-text-secondary) / <alpha-value>)',
+          'text-muted': 'rgb(var(--wa-text-muted) / <alpha-value>)',
+          hover: 'rgb(var(--wa-bg-hover) / <alpha-value>)',
+          active: 'rgb(var(--wa-bg-hover) / <alpha-value>)',
+          icon: 'rgb(var(--wa-icon) / <alpha-value>)',
+          unread: 'rgb(var(--wa-accent) / <alpha-value>)',
+        },
+      },
+      fontFamily: {
+        sans: ['Segoe UI', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+}
