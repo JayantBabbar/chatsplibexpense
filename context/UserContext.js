@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const UserContext = createContext()
@@ -43,13 +43,17 @@ export { TEST_USERS }
 
 export const UserProvider = ({ children }) => {
   const router = useRouter()
-  const currentKey = useMemo(() => {
+  const [currentUser, setCurrentUserState] = useState(TEST_USERS.alice)
+
+  useEffect(() => {
+    if (!router.isReady) return
+
     const userParam = router.query.user
     const normalizedUser = Array.isArray(userParam) ? userParam[0] : userParam
-    return normalizedUser && TEST_USERS[normalizedUser] ? normalizedUser : 'alice'
-  }, [router.query.user])
+    const nextUser = normalizedUser && TEST_USERS[normalizedUser] ? TEST_USERS[normalizedUser] : TEST_USERS.alice
 
-  const currentUser = TEST_USERS[currentKey]
+    setCurrentUserState(nextUser)
+  }, [router.isReady, router.query.user])
 
   const setCurrentUser = (nextUser) => {
     const nextKey =
@@ -60,6 +64,8 @@ export const UserProvider = ({ children }) => {
     if (!nextKey || !TEST_USERS[nextKey]) {
       return
     }
+
+    setCurrentUserState(TEST_USERS[nextKey])
 
     router.push(
       {

@@ -5,7 +5,7 @@ import { IoSunny, IoMoon } from 'react-icons/io5'
 
 export default function UserBanner() {
   const router = useRouter()
-  const { currentUser } = useUser()
+  const { currentUser, setCurrentUser } = useUser()
   const { theme, toggleTheme } = useTheme()
 
   const currentKey = Object.keys(TEST_USERS).find(
@@ -13,10 +13,7 @@ export default function UserBanner() {
   ) || 'alice'
 
   const switchUser = (key) => {
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, user: key },
-    })
+    setCurrentUser(key)
   }
 
   return (

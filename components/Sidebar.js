@@ -11,7 +11,7 @@ import { getSocket } from '../lib/socket'
 
 export default function Sidebar({ activeGroupId }) {
   const router = useRouter()
-  const { currentUser, TEST_USERS } = useUser()
+  const { currentUser, TEST_USERS, setCurrentUser } = useUser()
   const { theme, toggleTheme } = useTheme()
   const [groups, setGroups] = useState([])
   const [loading, setLoading] = useState(true)
@@ -22,10 +22,7 @@ export default function Sidebar({ activeGroupId }) {
 
   // Switch user utility
   const switchUser = (key) => {
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, user: key },
-    })
+    setCurrentUser(key)
   }
 
   // Close user dropdown on click outside
