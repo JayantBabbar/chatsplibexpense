@@ -102,48 +102,52 @@ export default function Sidebar({ activeGroupId }) {
     <div className="flex-1 bg-wa-bg flex flex-col min-h-0 h-full overflow-hidden select-none">
       {/* ── Header (Profile & Utils) ── */}
       <div className="bg-wa-bg-panel px-3.5 py-3 flex-shrink-0 flex items-center justify-between border-b border-wa-border-subtle relative">
-        <div 
-          ref={userMenuRef}
-          onClick={() => setShowUserDropdown(!showUserDropdown)}
-          className="flex items-center gap-2.5 min-w-0 cursor-pointer hover:bg-wa-bg-hover px-2 py-1 rounded-lg transition-all"
-          title="Switch Account"
-        >
-          <Avatar name={currentUser.display_name} src={currentUser.avatar_url} size="sm" />
-          <span className="text-[14.2px] font-semibold text-wa-text truncate hidden sm:inline">
-            {currentUser.display_name}
-          </span>
-          <IoChevronDown size={12} className="text-wa-text-secondary mt-0.5" />
-        </div>
-
-        {/* ── Switch Account Dropdown ── */}
-        {showUserDropdown && TEST_USERS && (
-          <div className="absolute left-3.5 top-full mt-1.5 w-56 bg-wa-bg-dropdown rounded-lg shadow-xl border border-wa-border-subtle py-1.5 z-50 animate-slideUp">
-            <div className="px-3.5 py-1.5 border-b border-wa-border-subtle/50 mb-1 select-none">
-              <p className="text-[10px] text-wa-text-secondary uppercase tracking-wider font-bold">Switch Account</p>
-            </div>
-            {Object.entries(TEST_USERS).map(([key, user]) => {
-              const isSelected = currentUser.id === user.id
-              return (
-                <button
-                  key={key}
-                  onClick={() => {
-                    setShowUserDropdown(false)
-                    switchUser(key)
-                  }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left hover:bg-wa-bg-hover transition-colors text-[13.5px] ${
-                    isSelected ? 'text-wa-accent font-semibold bg-wa-accent/5' : 'text-wa-text'
-                  }`}
-                >
-                  <Avatar name={user.display_name} size="sm" />
-                  <span className="truncate flex-1">{user.display_name}</span>
-                  {isSelected && (
-                    <div className="w-1.5 h-1.5 rounded-full bg-wa-accent" />
-                  )}
-                </button>
-              )
-            })}
+        <div ref={userMenuRef} className="relative min-w-0">
+          <div 
+            onClick={() => setShowUserDropdown(!showUserDropdown)}
+            className="flex items-center gap-2.5 min-w-0 cursor-pointer hover:bg-wa-bg-hover px-2 py-1 rounded-lg transition-all"
+            title="Switch Account"
+          >
+            <Avatar name={currentUser.display_name} src={currentUser.avatar_url} size="sm" />
+            <span className="text-[14.2px] font-semibold text-wa-text truncate hidden sm:inline">
+              {currentUser.display_name}
+            </span>
+            <IoChevronDown size={12} className="text-wa-text-secondary mt-0.5" />
           </div>
-        )}
+
+          {/* ── Switch Account Dropdown ── */}
+          {showUserDropdown && TEST_USERS && (
+            <div className="absolute left-0 top-full mt-1.5 w-56 bg-wa-bg-dropdown rounded-lg shadow-xl border border-wa-border-subtle py-1.5 z-50 animate-slideUp">
+              <div className="px-3.5 py-1.5 border-b border-wa-border-subtle/50 mb-1 select-none">
+                <p className="text-[10px] text-wa-text-secondary uppercase tracking-wider font-bold">Switch Account</p>
+              </div>
+              {Object.entries(TEST_USERS).map(([key, user]) => {
+                const isSelected = currentUser.id === user.id
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={(event) => {
+                      event.preventDefault()
+                      event.stopPropagation()
+                      setShowUserDropdown(false)
+                      switchUser(key)
+                    }}
+                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-left hover:bg-wa-bg-hover transition-colors text-[13.5px] ${
+                      isSelected ? 'text-wa-accent font-semibold bg-wa-accent/5' : 'text-wa-text'
+                    }`}
+                  >
+                    <Avatar name={user.display_name} size="sm" />
+                    <span className="truncate flex-1">{user.display_name}</span>
+                    {isSelected && (
+                      <div className="w-1.5 h-1.5 rounded-full bg-wa-accent" />
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+        </div>
 
         <div className="flex items-center gap-1 flex-shrink-0">
           {/* Theme toggle */}

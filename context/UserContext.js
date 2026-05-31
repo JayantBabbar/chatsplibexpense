@@ -13,25 +13,25 @@ export const useUser = () => {
 
 // Demo users matching seed.sql — all members of the two seeded demo groups
 const TEST_USERS = {
-  alice: {
+  aarav: {
     id: '00000000-0000-0000-0000-000000000001',
     display_name: 'Aarav Sharma',
     email: 'aarav@demo.com',
     avatar_url: null,
   },
-  bob: {
+  priya: {
     id: '00000000-0000-0000-0000-000000000002',
     display_name: 'Priya Singh',
     email: 'priya@demo.com',
     avatar_url: null,
   },
-  charlie: {
+  rohan: {
     id: '00000000-0000-0000-0000-000000000003',
     display_name: 'Rohan Verma',
     email: 'rohan@demo.com',
     avatar_url: null,
   },
-  diana: {
+  ananya: {
     id: '00000000-0000-0000-0000-000000000004',
     display_name: 'Ananya Iyer',
     email: 'ananya@demo.com',
@@ -43,14 +43,14 @@ export { TEST_USERS }
 
 export const UserProvider = ({ children }) => {
   const router = useRouter()
-  const [currentUser, setCurrentUserState] = useState(TEST_USERS.alice)
+  const [currentUser, setCurrentUserState] = useState(TEST_USERS.aarav)
 
   useEffect(() => {
     if (!router.isReady) return
 
     const userParam = router.query.user
     const normalizedUser = Array.isArray(userParam) ? userParam[0] : userParam
-    const nextUser = normalizedUser && TEST_USERS[normalizedUser] ? TEST_USERS[normalizedUser] : TEST_USERS.alice
+    const nextUser = normalizedUser && TEST_USERS[normalizedUser] ? TEST_USERS[normalizedUser] : TEST_USERS.aarav
 
     setCurrentUserState(nextUser)
   }, [router.isReady, router.query.user])
@@ -67,14 +67,14 @@ export const UserProvider = ({ children }) => {
 
     setCurrentUserState(TEST_USERS[nextKey])
 
-    router.push(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, user: nextKey },
-      },
-      undefined,
-      { shallow: true }
-    )
+    const rawId = router.query.id
+    const groupId = Array.isArray(rawId) ? rawId[0] : rawId
+    const basePath = router.pathname === '/groups/[id]' && groupId
+      ? `/groups/${groupId}`
+      : router.pathname
+    const nextUrl = `${basePath}?user=${nextKey}`
+
+    router.replace(nextUrl)
   }
 
   return (

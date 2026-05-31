@@ -1,16 +1,14 @@
-import { useRouter } from 'next/router'
 import { useUser, TEST_USERS } from '../context/UserContext'
 import { useTheme } from '../context/ThemeContext'
 import { IoSunny, IoMoon } from 'react-icons/io5'
 
 export default function UserBanner() {
-  const router = useRouter()
   const { currentUser, setCurrentUser } = useUser()
   const { theme, toggleTheme } = useTheme()
 
   const currentKey = Object.keys(TEST_USERS).find(
     (k) => TEST_USERS[k].id === currentUser.id
-  ) || 'alice'
+  ) || 'aarav'
 
   const switchUser = (key) => {
     setCurrentUser(key)
@@ -36,7 +34,12 @@ export default function UserBanner() {
             return (
               <button
                 key={key}
-                onClick={() => switchUser(key)}
+                type="button"
+                onClick={(event) => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  switchUser(key)
+                }}
                 className={`px-2 py-0.5 rounded-md text-[10px] sm:text-[11px] font-medium transition-all active:scale-95 ${
                   isSelected
                     ? 'bg-wa-accent text-white font-semibold'
