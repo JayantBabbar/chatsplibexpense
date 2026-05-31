@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 
 const UserContext = createContext()
@@ -43,16 +43,33 @@ export { TEST_USERS }
 
 export const UserProvider = ({ children }) => {
   const router = useRouter()
-  const [currentUser, setCurrentUser] = useState(TEST_USERS.alice)
-
-  // Read ?user=alice|bob|charlie|diana from URL on every route change
-  useEffect(() => {
-    if (!router.isReady) return
+  const currentKey = useMemo(() => {
     const userParam = router.query.user
-    if (userParam && TEST_USERS[userParam]) {
-      setCurrentUser(TEST_USERS[userParam])
+    const normalizedUser = Array.isArray(userParam) ? userParam[0] : userParam
+    return normalizedUser && TEST_USERS[normalizedUser] ? normalizedUser : 'alice'
+  }, [router.query.user])
+
+  const currentUser = TEST_USERS[currentKey]
+
+  const setCurrentUser = (nextUser) => {
+    const nextKey =
+      typeof nextUser === 'string'
+        ? nextUser
+        : Object.keys(TEST_USERS).find((key) => TEST_USERS[key].id === nextUser?.id)
+
+    if (!nextKey || !TEST_USERS[nextKey]) {
+      return
     }
-  }, [router.isReady, router.query.user])
+
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, user: nextKey },
+      },
+      undefined,
+      { shallow: true }
+    )
+  }
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser, TEST_USERS }}>
