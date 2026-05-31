@@ -11,30 +11,30 @@ export const useUser = () => {
   return context
 }
 
-// Three test users matching seed.sql — all members of "Weekend Trip" group
+// Demo users matching seed.sql — all members of the two seeded demo groups
 const TEST_USERS = {
   alice: {
-    id: '11111111-1111-1111-1111-111111111111',
+    id: '00000000-0000-0000-0000-000000000001',
     display_name: 'Aarav Sharma',
-    email: 'alice@example.com',
+    email: 'aarav@demo.com',
     avatar_url: null,
   },
   bob: {
-    id: '22222222-2222-2222-2222-222222222222',
+    id: '00000000-0000-0000-0000-000000000002',
     display_name: 'Priya Singh',
-    email: 'bob@example.com',
+    email: 'priya@demo.com',
     avatar_url: null,
   },
   charlie: {
-    id: '33333333-3333-3333-3333-333333333333',
+    id: '00000000-0000-0000-0000-000000000003',
     display_name: 'Rohan Verma',
-    email: 'charlie@example.com',
+    email: 'rohan@demo.com',
     avatar_url: null,
   },
   diana: {
-    id: '44444444-4444-4444-4444-444444444444',
+    id: '00000000-0000-0000-0000-000000000004',
     display_name: 'Ananya Iyer',
-    email: 'diana@example.com',
+    email: 'ananya@demo.com',
     avatar_url: null,
   },
 }
